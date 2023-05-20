@@ -1,0 +1,105 @@
+핀 => 각 핀의 의미는 뭘까
+각각ㄱ의 이미지가 핀 => image, link, title, connected 특정 유저
+이 필드에 들어가야함
+ 
+이미지 필드에 들어가는 options의 hotsopt이 뭘까 => 공식문서에 있음 => property임 => 각 사이즈에 맞게 해주는건가? 
+
+postedBy라는 type도 있음
+ 
+
+
+front
+tailwindcss, react를 씀
+
+create-react-app with tailwind css설치
+
+name과 googleId, imageUrl이 response.profileObj에서 얻어와지는데
+
+문제는 얻어와지는 객체가 crediential 로 보호되서 옴
+그래서 얘를 분해해야함
+어떻게?
+
+jwt_decode로 해독하며 response.credential로 해독해보면 각 정보가 뿌려진다.
+이 때 필요한 어.... profileOb가 결국 response.credential을 jwt_decode로 해독한 객체가 되겠다
+그러면 이미 이 안에 name있고, googleId는 음..... email이 될것같고, imageUrl은 picture가 된다.
+name => name
+googleId => email 
+imageUrl => picture ㅇㅋ
+
+stackoverflow검색 결과 name은 name이 맞는데 googleId가 sub래ㅇㅇ
+
+googleId => sub가 되겠다.
+무튼 docs로 user 스키마에 수정을 하게 되는데
+
+결과론적으로 로그인한 유저를 sanity의 user label에 username과 함께 image가 등록되게 하는 것까지가 첫번째 미션
+
+navbar개발
+feed개발
+Pin component개발
+
+
+backend 에서 sanity build 및 start와 front에서 npm start로 동시 실행
+
+
+
+일단은 createpin에서 올리는 것까지 해서 올렸을 때 홈화면으로 나와서 사진이 추가되는 것까지 했는데
+문제는 사진이랑 이름이 안뜸.
+
+createpin에서 prop으로 받아오는 user의 정보(아 이 때는 fetch가 아니라 prop으로 받아오는 유저 정보)
+그럼 이 createpin을 어디에서 호출하는지를 알아야 하기 때문에 이것은 Pins에서 호출한다는거.
+
+마찬가지로 그럼 이 Pins에서 prop으로 던지는 user의 정보는 뭐냐. 마찬가지로 prop으로 받아오는 user 정보.
+
+그럼 또 이 Pins를 어디서 호출하는지를 알아보자.
+Home에서 Route를 통해서 Pins를 호출하고 있고 user라는 prop에 user라는 정보를 던져주는데
+그럼 이 home에서의 user정보는 어떻게 되고 있는지 알아보자.
+
+user의 정보는 useState를 통해 선언되며, 그럼 어디서 setUser가 사용되서 수정되는지 알아보면, 
+
+마찬가지로 pindetail도 user의 정보를 주고 pins에서도 user의 정보는 home에서 받아오기 때문에 그럼 home에서 전해주는
+user의 정보부터 파악하는게 중요하다.
+
+첫 시작에 useEffect를 통해 
+setUser를 통해서 data[0]를 전해주는데 
+이를 통해서 user가 어떻게 변화하는지 살펴보자
+
+총 길이 1의 array가 들어오고(data)
+첫번째 요소에 현재 로그인한 유저의 정보가 출력되는데
+그 정보로는 
+유저의 이미지(구글 로그인 이미지) => image
+userName
+_createdAt
+_id   => 요게 이전 로그인정보에서 변환해서 저장한 sub정보가 되겠다.
+_rev
+_type
+_updatedAt이 있음
+ㅇㅋ 굳
+
+왜 디테일에 코멘트가 안나오지
+화면처럼 바로 안나옴 => setState를 사용해서 리렌더링이 됨에도 불구하고 바로 수정이 안됨 => 음.. 이쪽 연동 문제인가? 코드에는 별 문제 없어보임
+
+
+pin Detail끝
+
+다음으로 user profile
+  
+googleLogout이 따로 태그가 아니라 그냥 함수 자체
+그러면 내부에서 onClick을 통해 함수 로직 안에 googleLogout을 구현하는건 어떨까?
+
+ ㅇㅋ
+끝나고
+이제 카테고리차례
+
+다음 search =>쿼리 추가 후 search완료
+
+사진들을 더 만들고 layout을 더 아름답게 만들어보자.
+타이틀과 로고 수정
+
+마지막으로 deploy까지 해주기
+
+
+
+ㅇㅋ
+다 잘 돌아감
+
+마지막으로 title 파비콘
